@@ -6,6 +6,7 @@
      WHERE type1 IN ('fire', 'water', 'flying', 'ground') 
         OR type2 IN ('fire', 'water', 'flying', 'ground') = 328 Pokemon -->
 
+
 <!-- 
   This block creates a comma-separated list for the types, so that we get
   either "grass, poison" if they have two types, or "fighting" if they have
@@ -15,6 +16,7 @@
 <xsl:template match="type[position() = last()]">
   <xsl:value-of select="text()"/>
 </xsl:template>
+
 
 <!--
   These rules will generate text output rather than text; these are useful for more easily
@@ -45,9 +47,10 @@
   than repeating it twice (once to do the query, once to get the count) as happens
   in the other xsl files.
   -->
+
 <!-- In this template, select all the pokemon that are fire, water, flying or ground -->
 <xsl:template match="/pokedex">
-  <xsl:variable name="pokemonResults" select="XPATH-QUERY-GOES-HERE" />
+  <xsl:variable name="pokemonResults" select="pokemon[type='fire' or type='water' or type='flying' or type='ground']" />
 
   <html>
   <body>
@@ -68,8 +71,8 @@
      statements, respectively. -->
 <xsl:template match="pokemon">
     <tr>
-      <td><xsl:value-of select=".XPATH-QUERY-GOES-HERE" />(<xsl:value-of select="XPATH-QUERY-GOES-HERE" />)</td>
-      <td><xsl:apply-templates select="XPATH-QUERY-GOES-HERE" /></td>
+      <td><xsl:value-of select="name" />(<xsl:value-of select="@pokedexNumber" />)</td>
+      <td><xsl:apply-templates select="type" /></td>
     </tr>
 </xsl:template>
 
